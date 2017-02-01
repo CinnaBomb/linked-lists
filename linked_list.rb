@@ -53,32 +53,23 @@ class LinkedList
 	end
 
 	def at(index)
-		return nil if index > size
+		return nil if index >= @size
 		current_node = @head
 		index.times {current_node = current_node.next_node}
 		current_node
 	end
 
 	def pop
-		#needs work
-		if @size == 1
+		popped_node = self.at(@size-1)
+		@tail = self.at(@size-2)
+		@tail.next_node = nil
+		@size -=1
+		popped_node
 
-		end
-		current_node = @head
-		for i in (0..@size)
-			if current_node.next_node.nil? == false
-				current_node = current_node.next_node
-			else
-				temp = current_node
-				current_node = nil
-				@tail = temp
-				return temp
-			end
-		end
 	end
 
 	def contains?(value)
-		if self.find(value) == -1
+		if self.find(value) == nil
 			return false
 		else
 			return true
@@ -94,13 +85,13 @@ class LinkedList
 				current_node = current_node.next_node
 			end
 		end
-		return -1
+		return nil
 	end
 
 	def to_s
 		str = ""
 		current_node = @head
-		while current_node.nil? == false
+		@size.times do
 			str += "( #{current_node.value} ) -> "
 			current_node = current_node.next_node
 		end
@@ -136,10 +127,17 @@ a = LinkedList.new
 a.prepend("four")
 a.prepend("three")
 a.prepend("two")
-puts a.at(0).inspect
-puts a.at(1).inspect
-puts a.at(2).inspect
-puts a.size
-puts a.head.inspect
-puts a.tail.inspect
-puts a.to_s
+# puts a.at(0).inspect
+# puts a.at(1).inspect
+# puts a.at(2).inspect
+# puts a.at(2).inspect
+# puts a.size
+# puts a.head.inspect
+# puts a.tail.inspect
+puts a.pop
+puts a.pop
+ puts a.to_s
+ puts a.size
+# puts a.find("two")
+# puts a.contains?("three")
+# puts a.contains?("none")
