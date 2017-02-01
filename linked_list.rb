@@ -29,11 +29,15 @@ class LinkedList
 	end
 
 	def prepend(value)
-		#needs work
 		new_node = Node.new(value)
-		temp = @head.next_node
-		@head.next_node = @head
-		@head = new_node
+		if size == 0
+			@head = new_node
+			@tail = new_node
+		else
+			new_node.next_node = @head
+			@head = new_node
+		end
+		@size +=1
 	end
 
 	def size
@@ -41,22 +45,18 @@ class LinkedList
 	end
 
 	def head
-		return @head.to_s
+		return @head
 	end
 
 	def tail
-		return @tail.to_s
+		return @tail
 	end
 
 	def at(index)
-		return @head if index == 0
-		current_node = @head.next_node
-		unless current_node.next_node.nil?
-			for i in (1...index)
-				current_node = current_node.next_node
-			end 
-		end
-		return current_node
+		return nil if index > size
+		current_node = @head
+		index.times {current_node = current_node.next_node}
+		current_node
 	end
 
 	def pop
@@ -82,11 +82,12 @@ class LinkedList
 			return false
 		else
 			return true
+		end
 	end
 
 	def find(data)
 		current_node = @head
-		for i in (0, @size)
+		for i in (0...@size)
 			if current_node.value == data
 				return i
 			else
@@ -106,19 +107,39 @@ class LinkedList
 		str += "nil"
 	end
 
+	#EXTRA CREDIT
+	def insert_at(index)
+
+	end
+
+	def remove_at(index)
+
+	end
+
 
 end
 
 a = LinkedList.new
-a.append("zero")
-a.append("one")
-a.append("two")
-a.append("three")
-a.append("new")
+# a.append("zero")
+# a.append("one")
+# a.append("two")
+# a.append("three")
+# a.append("four")
 #puts a.at(0).inspect
-a.at(1)
-#puts a.at(2).inspect
-a.at(3)
-#puts a.at(4).inspect
-#puts a.tail.inspect
+#puts a.at(3).inspect
+#puts a.at(5).inspect
+#puts a.size
+#puts a.head
+#puts a.tail
+#puts a.to_s
+
+a.prepend("four")
+a.prepend("three")
+a.prepend("two")
+puts a.at(0).inspect
+puts a.at(1).inspect
+puts a.at(2).inspect
+puts a.size
+puts a.head.inspect
+puts a.tail.inspect
 puts a.to_s
