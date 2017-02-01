@@ -99,20 +99,36 @@ class LinkedList
 	end
 
 	#EXTRA CREDIT
-	def insert_at(index)
-
+	def insert_at(index, value)
+		shifted_node = self.at(index)
+		new_node = Node.new(value)
+		new_node.next_node = shifted_node
+		if index ==0
+			@head = new_node
+		else
+			prev_node = self.at(index-1)
+			prev_node.next_node = new_node
+		end
+		@size +=1
 	end
 
 	def remove_at(index)
-
+		if index == 0
+			@head = @head.next_node
+		else
+			removed_node = self.at(index)
+			prev_node = self.at(index-1)
+			prev_node.next_node = removed_node.next_node
+		end
+		@size -=1
 	end
 
 
 end
 
-a = LinkedList.new
-# a.append("zero")
-# a.append("one")
+
+#TESTING
+# a = LinkedList.new
 # a.append("two")
 # a.append("three")
 # a.append("four")
@@ -124,9 +140,8 @@ a = LinkedList.new
 #puts a.tail
 #puts a.to_s
 
-a.prepend("four")
-a.prepend("three")
-a.prepend("two")
+# a.prepend("one")
+# a.prepend("zero")
 # puts a.at(0).inspect
 # puts a.at(1).inspect
 # puts a.at(2).inspect
@@ -134,10 +149,18 @@ a.prepend("two")
 # puts a.size
 # puts a.head.inspect
 # puts a.tail.inspect
-puts a.pop
-puts a.pop
- puts a.to_s
- puts a.size
+# puts a.pop
+# puts a.pop
+# a.remove_at(0)
+# a.remove_at(0)
+# a.remove_at(2)
+# a.remove_at(3)
+# puts a.to_s
+# puts a.size
 # puts a.find("two")
 # puts a.contains?("three")
 # puts a.contains?("none")
+# a.insert_at(1, "one")
+# a.insert_at(2, "wrong")
+# puts a.to_s
+# puts a.size
